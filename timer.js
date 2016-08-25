@@ -1,3 +1,5 @@
+
+
 var timer = (function() {
 
     var timer_display;
@@ -29,3 +31,8 @@ var timer = (function() {
 })();
 
 timer.init(document.getElementById('display'));
+
+// attach listiners to buttons
+document.getElementById('start').addEventListener('click', timer.start);
+document.getElementById('stop').addEventListener('click', timer.stop);
+document.getElementById('reset').addEventListener('click', timer.clear);
