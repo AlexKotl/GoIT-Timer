@@ -19,6 +19,7 @@ body {
     color: black;
     font-size: 0.2em;
     background-color: #cfffaf;
+    text-shadow: 0 1px 1px #fff;
 }
 
 .buttons button:hover {
