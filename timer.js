@@ -3,12 +3,19 @@
 var timer = (function() {
 
     var display_el;
-    var current_seconds = 5 * 60;
+    var current_seconds = 0;
     var is_active = false;
 
     var format_time = function(number) {
-        return Math.floor(number/60) + ':' + (number - Math.floor(number/60) * 60)
-            + (number % 10 == 0 ? '0' : '');
+        var mins = Math.floor(number/60);
+        var secs = number - Math.floor(number/60) * 60;
+
+        return "" +
+            (mins < 10 ? '0' : '')
+            + mins
+            + ':'
+            + (secs < 10 ? '0' : '')
+            + secs;
     }
 
     var render = function() {
@@ -16,11 +23,9 @@ var timer = (function() {
         display_el.innerHTML = format_time(current_seconds);
 
         if (is_active) {
-            current_seconds--;
+            current_seconds++;
             window.setTimeout(render, 1000);
         }
-
-        console.log('rendered...');
     };
 
     return {
@@ -46,7 +51,7 @@ var timer = (function() {
         },
 
         clear: function() {
-            current_seconds = 5 * 60;
+            current_seconds = 0;
             is_active = false;
             render();
 
