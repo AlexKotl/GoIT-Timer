@@ -6,14 +6,14 @@ var timer = (function() {
     var current_seconds = 0;
     var is_active = false;
 
-    var format_time = function(number) {
-        var mins = Math.floor(number/60);
-        var secs = number - Math.floor(number/60) * 60;
+    var format_time = (number) => {
+        let mins = Math.floor(number/60);
+        let secs = number - Math.floor(number/60) * 60;
 
         return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
-    var render = function() {
+    var render = () => {
 
         display_el.innerHTML = format_time(current_seconds);
 
@@ -26,26 +26,26 @@ var timer = (function() {
     return {
 
 
-        init: function(el) {
+        init: (el) => {
             display_el = el;
 
             console.log('Timer initialized');
         },
 
-        start: function() {
+        start: () => {
             is_active = true;
             render();
             console.log('Timer started');
         },
 
-        stop: function() {
+        stop: () => {
             is_active = false;
             render();
 
             console.log('Timer stopped');
         },
 
-        clear: function() {
+        clear: () => {
             current_seconds = 0;
             is_active = false;
             render();
