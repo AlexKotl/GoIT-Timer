@@ -10,12 +10,7 @@ var timer = (function() {
         var mins = Math.floor(number/60);
         var secs = number - Math.floor(number/60) * 60;
 
-        return "" +
-            (mins < 10 ? '0' : '')
-            + mins
-            + ':'
-            + (secs < 10 ? '0' : '')
-            + secs;
+        return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
     var render = function() {
