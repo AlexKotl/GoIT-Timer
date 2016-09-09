@@ -1,63 +1,52 @@
 
 
-var timer = (function() {
+class CTimer {
 
-    var display_el;
-    var current_seconds = 0;
-    var is_active = false;
-
-    var format_time = (number) => {
+    format_time(number) {
         let mins = Math.floor(number/60);
         let secs = number - Math.floor(number/60) * 60;
 
         return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
-    var render = () => {
+    render() {
+        this._display_el.innerHTML = this.format_time(this._current_seconds);
 
-        display_el.innerHTML = format_time(current_seconds);
-
-        if (is_active) {
-            current_seconds++;
-            window.setTimeout(render, 1000);
-        }
-    };
-
-    return {
-
-
-        init: (el) => {
-            display_el = el;
-
-            console.log('Timer initialized');
-        },
-
-        start: () => {
-            is_active = true;
-            render();
-            console.log('Timer started');
-        },
-
-        stop: () => {
-            is_active = false;
-            render();
-
-            console.log('Timer stopped');
-        },
-
-        clear: () => {
-            current_seconds = 0;
-            is_active = false;
-            render();
-
-            console.log('Timer resetted');
+        if (this._is_active) {
+            this._current_seconds++;
+            window.setTimeout(this.render.bind(this), 1000);
         }
     }
-})();
 
-timer.init(document.getElementById('display'));
+    constructor(el) {
+        this._display_el = el;
+        this._current_seconds = 0;
+        this._is_active = false;
+
+        console.log('Timer initialized');
+    }
+
+    start() {
+        this._is_active = true;
+        this.render();
+    }
+
+    stop() {
+        this._is_active = false;
+        this.render();
+    }
+
+    clear() {
+        this._current_seconds = 0;
+        this._is_active = false;
+        this.render();
+    }
+};
+    
+var timer = new CTimer(document.getElementById('display'));
+//timer.start();
 
 // attach listiners to buttons
-document.getElementById('start').addEventListener('click', timer.start);
-document.getElementById('stop').addEventListener('click', timer.stop);
-document.getElementById('reset').addEventListener('click', timer.clear);
+document.getElementById('start').addEventListener('click', timer.start.bind(timer));
+document.getElementById('stop').addEventListener('click', timer.stop.bind(timer));
+document.getElementById('reset').addEventListener('click', timer.clear.bind(timer));
